@@ -8,6 +8,19 @@ from datasets import load_dataset
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import re
 from collections import defaultdict
+import requests
+import os
+
+# Function to download the GloVe file if it doesn't exist
+def download_glove_file():
+    glove_url = "https://drive.google.com/uc?export=download&id=1aBcDeFgHiJkLmNoPqRsTuVwXyZ"  # Replace with your URL
+    glove_path = "glove.6B.50d.txt"
+    if not os.path.exists(glove_path):
+        with st.spinner("Downloading GloVe embeddings..."):
+            response = requests.get(glove_url)
+            with open(glove_path, "wb") as f:
+                f.write(response.content)
+        st.success("GloVe embeddings downloaded successfully!")
 
 # Function to handle contractions
 def expand_contractions(text):
@@ -75,6 +88,9 @@ def predict_sentiment(text, model, embeddings_index, embedding_dim):
 # Load GloVe embeddings and model (cached in session state)
 if 'embeddings_index' not in st.session_state or 'model' not in st.session_state:
     with st.spinner("Loading GloVe embeddings and model..."):
+        # Download GloVe file if it doesn't exist
+        download_glove_file()
+
         # Load GloVe embeddings
         embedding_dim = 50
         embeddings_index = {}
