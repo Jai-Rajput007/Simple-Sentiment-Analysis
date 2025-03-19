@@ -13,7 +13,7 @@ import os
 
 # Function to download the GloVe file if it doesn't exist
 def download_glove_file():
-    glove_url = "https://drive.google.com/uc?export=download&id=1aBcDeFgHiJkLmNoPqRsTuVwXyZ"  # Replace with your URL
+    glove_url = "https://drive.google.com/file/d/1AJbmlVcfKytAN5pqGG-XoRJJfhWn_tUj/view?usp=sharing"  # Replace with your URL
     glove_path = "glove.6B.50d.txt"
     if not os.path.exists(glove_path):
         with st.spinner("Downloading GloVe embeddings..."):
