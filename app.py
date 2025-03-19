@@ -14,12 +14,16 @@ import os
 import gdown
 
 def download_glove_file():
-    glove_url = "https://drive.google.com/file/d/1AJbmlVcfKytAN5pqGG-XoRJJfhWn_tUj/view?usp=sharing"  # Replace with your URL
+    glove_url = "https://drive.google.com/uc?id=1AJbmlVcfKytAN5pqGG-XoRJJfhWn_tUj"  # Your file's direct download URL
     glove_path = "glove.6B.50d.txt"
     if not os.path.exists(glove_path):
         with st.spinner("Downloading GloVe embeddings..."):
-            gdown.download(glove_url, glove_path, quiet=False)
-        st.success("GloVe embeddings downloaded successfully!")
+            try:
+                gdown.download(glove_url, glove_path, quiet=False)
+                st.success("GloVe embeddings downloaded successfully!")
+            except Exception as e:
+                st.error(f"Failed to download GloVe embeddings: {e}")
+                raise
     return glove_path
 
 # Function to handle contractions
