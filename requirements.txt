@@ -1,5 +1,6 @@
+streamlit
+torch
 numpy
 pandas
-torch
-streamlit
-matplotlib
+datasets
+scikit-learn
